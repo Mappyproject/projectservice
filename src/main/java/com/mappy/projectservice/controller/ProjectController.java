@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class ProjectController {
     private ProjectService projectService;
 
