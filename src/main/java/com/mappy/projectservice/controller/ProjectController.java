@@ -19,12 +19,12 @@ public class ProjectController {
 
     @GetMapping
     public Iterable<Project> getAll() { return projectService.getAll(); }
-    @GetMapping("/{id}")
-    public Optional<Project> getById(Long projectId) { return projectService.getById(projectId); }
+    @GetMapping(path= "/{projectId}")
+    public Optional<Project> getById(@PathVariable Long projectId) { return projectService.getById(projectId); }
     @PostMapping
-    public Project save(Project project) { return projectService.save(project); }
+    public Project save(@RequestBody Project project) { return projectService.save(project); }
     @PutMapping
-    public Project update(Project project) { return projectService.update(project); }
+    public Project update(@RequestBody Project project) { return projectService.update(project); }
     @DeleteMapping
-    public void delete(Project project) { projectService.delete(project); }
+    public void delete(@RequestBody Project project) { projectService.delete(project); }
 }
