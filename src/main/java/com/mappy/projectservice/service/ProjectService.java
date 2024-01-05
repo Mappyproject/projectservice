@@ -5,6 +5,7 @@ import com.mappy.projectservice.repository.IProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,8 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Project save(Project project) {
+        LocalDateTime currentDate = LocalDateTime.now();
+        project.setUploadDate(currentDate);
         return projectRepository.save(project);
     }
 
