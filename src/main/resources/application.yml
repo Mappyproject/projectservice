@@ -8,4 +8,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone : http://mappy_eurekaserver:8761/eureka/
+      defaultZone : http://mappy-eureka:8761/eureka/
