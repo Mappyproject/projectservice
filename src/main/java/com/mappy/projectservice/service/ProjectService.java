@@ -16,8 +16,6 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Project save(Project project) {
-        LocalDateTime currentDate = LocalDateTime.now();
-        project.setUploadDate(currentDate);
         return projectRepository.save(project);
     }
 

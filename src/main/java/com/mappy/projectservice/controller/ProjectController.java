@@ -3,13 +3,12 @@ package com.mappy.projectservice.controller;
 import com.mappy.projectservice.dto.ProjectDto;
 import com.mappy.projectservice.models.Project;
 import com.mappy.projectservice.publisher.RabbitMQJsonProducer;
-import com.mappy.projectservice.publisher.RabbitMQProducer;
 import com.mappy.projectservice.service.ProjectService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -23,10 +22,9 @@ public class ProjectController {
     @Autowired
     public ProjectController(ProjectService projectService, RabbitMQJsonProducer jsonProducer) { this.projectService = projectService; this.jsonProducer = jsonProducer; }
 
-    @PostMapping("/publish")
-    public ResponseEntity<String> sendJsonMessage(@RequestBody ProjectDto projectDto) {
+    public void sendJsonMessage(@RequestBody ProjectDto projectDto) {
         jsonProducer.sendJsonMessage(projectDto);
-        return ResponseEntity.ok("Project sent to RabbitMQ ...");
+        ResponseEntity.ok("Project sent to RabbitMQ ...");
     }
     @GetMapping
     public Iterable<Project> getAll() { return projectService.getAll(); }
@@ -36,6 +34,8 @@ public class ProjectController {
     public Project save(@RequestBody Project project) {
         ProjectDto projectDto = new ProjectDto(project.getId());
         sendJsonMessage(projectDto);
+        LocalDateTime currentDate = LocalDateTime.now();
+        project.setUploadDate(currentDate);
         return projectService.save(project); }
     @PutMapping
     public Project update(@RequestBody Project project) { return projectService.update(project); }

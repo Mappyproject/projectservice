@@ -24,4 +24,10 @@ public class Project {
     private List<Long> tag_ids;
     @ElementCollection
     private List<Long> event_ids;
+
+    public Project(String name, List<Long> tag_ids, List<Long> event_ids) {
+        this.name = name;
+        this.tag_ids = tag_ids;
+        this.event_ids = event_ids;
+    }
 }

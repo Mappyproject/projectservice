@@ -14,8 +14,6 @@ public class EventService implements IEventService {
     private final IEventRepository eventRepository;
     @Override
     public Event save(Event event) {
-        LocalDateTime currentDate = LocalDateTime.now();
-        event.setDate(currentDate);
         return eventRepository.save(event);
     }
 
